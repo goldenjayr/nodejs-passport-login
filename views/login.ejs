@@ -1,5 +1,7 @@
-<h1><a href="/">Home</a></h1>
 <h1>Login</h1>
+<% if(messages.error){ %>
+    <%= messages.error %>
+<% } %>
 <form action="/login" method="POST">
     <div>
         <label for="email">Email</label>
@@ -7,7 +9,7 @@
     </div>
     <div>
         <label for="password">Password</label>
-        <input type="text" id="password" name="password">
+        <input type="text" id="password" name="password" required>
     </div>
     <button type="submit">Login</button>
 </form>

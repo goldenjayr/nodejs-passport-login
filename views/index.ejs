@@ -1,7 +1,6 @@
 <!-- ejs is like an html with javascript in it -->
-<% users.forEach(user => { %>
-    <h2>ID: <%= user.id %></h2>
-    <h2>Name: <%= user.name %></h2>
-    <h2>Email: <%= user.email %></h2>
-    <h2>Password: <%= user.password %></h2>
-<% }) %>
+
+<h1>Hi <%= name %></h1>
+<form action="/logout?_method=DELETE" method="POST">
+    <button type="submit">Log Out</button>
+</form>
