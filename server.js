@@ -44,7 +44,7 @@ app.use(expressLayouts)
 app.use(express.static('public'))
 app.use(flash())
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: 'hahaha',
     resave: false,
     saveUninitialized: false
 }))
