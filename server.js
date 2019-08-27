@@ -23,6 +23,7 @@ const flash= require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
 const expressLayouts = require('express-ejs-layouts')
+const cors = require('cors')
 
 // imports initialize function to the file to lessen code
 const initializePassport = require('./passport-config')
@@ -37,6 +38,7 @@ initializePassport(
 app.set('view engine', 'ejs')
 // sets the over all layout of the project
 app.set('layout', 'layouts/layout')
+app.use(cors())
 // this code lets us collect the data from our Form POST method in our views
 app.use(express.urlencoded({extended: false}))
 app.use(expressLayouts)
@@ -44,7 +46,7 @@ app.use(expressLayouts)
 app.use(express.static('public'))
 app.use(flash())
 app.use(session({
-    secret: 'hahaha',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }))
