@@ -1,0 +1,7 @@
+:root {
+    --color-base-hue: 0;
+    --color-text-light: hsl(var(--color-base-hue), 100%, 100%);
+    --color-text-dark: hsl(var(--color-base-hue), 0%, 25%);
+    --color-purple: hsl(287, 70%, 45%);
+    --color-purple-hover: hsl(287, 50%, 60%);
+}

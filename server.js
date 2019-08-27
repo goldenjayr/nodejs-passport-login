@@ -22,6 +22,7 @@ const passport = require('passport')
 const flash= require('express-flash')
 const session = require('express-session')
 const methodOverride = require('method-override')
+const expressLayouts = require('express-ejs-layouts')
 
 // imports initialize function to the file to lessen code
 const initializePassport = require('./passport-config')
@@ -33,9 +34,14 @@ initializePassport(
 )
 
 // sets the view-engine to ejs so that our application is able to read ejs syntax
-app.set('view-engine', 'ejs')
+app.set('view engine', 'ejs')
+// sets the over all layout of the project
+app.set('layout', 'layouts/layout')
 // this code lets us collect the data from our Form POST method in our views
 app.use(express.urlencoded({extended: false}))
+app.use(expressLayouts)
+// this code omits the public when calling the the css from the styles folder
+app.use(express.static('public'))
 app.use(flash())
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -44,7 +50,9 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+// method override is used to override post requests if there is no available default methods... like delete and put
 app.use(methodOverride('_method'))
+
 
 
 
@@ -54,7 +62,7 @@ const users = []
 
 // on / route render the view file index.ejs
 // express automatically looks into the views folder... no need to explicitly include the views folder in the path
-app.get('/', checkAuthenticated, (req, res) => res.render('index.ejs', {name: req.user.name}))
+app.get('/', checkAuthenticated, (req, res) => res.render('index.ejs', {name: req.body.name}))
 
 // creates a /login route for login.ejs view
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -91,6 +99,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     }
 })
 
+// delete method logs out the user
 app.delete('/logout', (req, res) => {
     req.logOut()
     res.redirect('/login')
